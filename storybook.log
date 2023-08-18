@@ -1,0 +1,19 @@
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Progress: resolved 21, reused 16, downloaded 2, added 0
+Progress: resolved 25, reused 17, downloaded 5, added 0
+Progress: resolved 26, reused 17, downloaded 7, added 0
+Progress: resolved 299, reused 279, downloaded 10, added 0
+ ERR_PNPM_NO_MATCHING_VERSION  No matching version found for @storybook/preview-api@7.3.2
+
+This error happened while installing the dependencies of @storybook/nextjs@7.3.2
+
+The latest release of @storybook/preview-api is "7.3.1".
+
+Other releases are:
+  * next: 7.4.0-alpha.0
+  * future: 7.1.0-alpha.29
+  * pr-23508: 7.1.1-pr-23508-1689802571-5ec8c1c3.0
+  * pr-22631: 7.1.1-pr-22631-1689802540-351503cb.0
+  * canary: 0.0.0-pr-23882-sha-6c4dd3dd
+
+If you need the full list of all 205 published versions run "$ pnpm view @storybook/preview-api versions".

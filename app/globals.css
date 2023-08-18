@@ -2,26 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply font-openSans bg-white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply font-roboto font-medium;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+.weekCell {
+  @apply flex items-center justify-center outline-teal;
+}
+
+.dayCell {
+  @apply text-center outline-teal border border-lightMint h-[50px];
+}
+
+.sticky-header {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  z-index: 20;
+  width: 97%;
+  background: white;
+  @apply m-4 !important;
+}
+
+.scrolling-text {
+  animation: marquee 5s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  50% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
 }

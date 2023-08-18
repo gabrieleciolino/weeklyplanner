@@ -1,0 +1,56 @@
+import * as RadixSelect from "@radix-ui/react-select";
+import Button from "./Button";
+import { FiArrowDownCircle, FiArrowUpCircle } from 'react-icons/fi'
+import { useEffect, useRef, useState } from "react";
+
+interface SelectProps {
+    placeholder?: string;
+    label?: string;
+    options: { label: string, value: string }[];
+    onValueChange: (val: string) => void;
+    value?: string;
+}
+
+export default function Select({ placeholder = 'Select an option', label = 'Value', options, value, onValueChange }: SelectProps) {
+    const triggerRef = useRef<HTMLButtonElement>(null)
+    const [contentWidth, setContentWidth] = useState(0); // State to store the width
+
+    useEffect(() => {
+        if (triggerRef.current) {
+            setContentWidth(triggerRef.current.offsetWidth); // Set the width when the component mounts or updates
+        }
+    }, []);
+
+    const selectedOption = options.find(option => option.value === value);
+
+    return (
+        <RadixSelect.Root {...value && { value: selectedOption?.value }} onValueChange={(val) => onValueChange(val)}>
+            <RadixSelect.Trigger ref={triggerRef} asChild>
+                <Button size="auto" variant="tertiary">
+                    <div className="text-xs leading-3 lg:text-base">
+                        <RadixSelect.Value className="" placeholder={placeholder}>
+                            {!selectedOption?.label && <>{placeholder}</>}
+                            {selectedOption?.label && <>
+                                {label}: {selectedOption?.label}
+                            </>}
+                        </RadixSelect.Value>
+                    </div>
+                </Button>
+            </RadixSelect.Trigger>
+            <RadixSelect.Portal>
+                <RadixSelect.Content position="popper" style={{ width: `${contentWidth}px` }}>
+                    <RadixSelect.Viewport>
+                        <div className=" bg-white my-4">
+                            <RadixSelect.Group>
+                                {options.map((option, idx) => (
+                                    <RadixSelect.Item key={idx} value={option.value}
+                                        className="bg-lightMint mb-2 rounded-full h-[30px] flex items-center justify-center cursor-pointer">{option.label}</RadixSelect.Item>
+                                ))}
+                            </RadixSelect.Group>
+                        </div>
+                    </RadixSelect.Viewport>
+                </RadixSelect.Content>
+            </RadixSelect.Portal>
+        </RadixSelect.Root>
+    )
+}

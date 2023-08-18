@@ -1,8 +1,13 @@
+import Header from '@/components/header/Header'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Roboto, Open_Sans } from 'next/font/google'
+import Providers from '@/components/Providers'
 
-const inter = Inter({ subsets: ['latin'] })
+
+const roboto = Roboto({ subsets: ['latin'], weight: ["400", "500", "700"], variable: "--font-roboto" })
+const openSans = Open_Sans({ subsets: ['latin'], variable: "--font-open-sans", weight: ["400", "500", "600", "700"] })
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +20,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${roboto.variable} ${openSans.variable}`}>
+      <body>
+        <Header />
+        <main>
+          <Providers>
+            {children}
+          </Providers>
+        </main>
+      </body>
     </html>
   )
 }
