@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Roboto, Open_Sans } from 'next/font/google';
 import Providers from '@/components/Providers';
+import { Analytics } from '@vercel/analytics/react';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -31,7 +32,10 @@ export default function RootLayout({
         <Providers>
           <>
             <Header />
-            <main>{children}</main>
+            <main>
+              {children}
+              <Analytics />
+            </main>
           </>
         </Providers>
       </body>
