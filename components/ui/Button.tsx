@@ -1,66 +1,81 @@
-import React from "react";
+import React from 'react';
+import { FaSpinner } from 'react-icons/fa6';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "primary" | "secondary" | "tertiary";
-    size?: "small" | "base" | "large" | "full";
-    disabled?: boolean;
-    inverted?: boolean;
-    children?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'small' | 'base' | 'large' | 'full';
+  disabled?: boolean;
+  loading?: boolean;
+  children?: React.ReactNode;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
-    variant = 'primary',
-    size = 'base',
-    disabled = false,
-    inverted = false,
-    className = '',
-    children,
-    ...props
-}, ref) => {
-    let variantClasses
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      variant = 'primary',
+      size = 'base',
+      disabled = false,
+      loading = false,
+      className = '',
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const sizes = {
+      small: '7rem',
+      base: '8rem',
+      large: '9rem',
+      full: '8rem',
+    };
+
+    const baseButtonClasses = `rounded-full font-roboto font-medium px-4 flex items-center justify-center hover:border hover:border-fuchsia-blue-400`;
+
+    let variantButtonClasses;
 
     switch (variant) {
-        case 'tertiary':
-            variantClasses = 'border border-mint text-mint'
-            break
-        case 'secondary':
-            variantClasses = !inverted ? 'bg-mint text-purple' : 'bg-purple text-mint'
-            break
-        case 'primary':
-        default:
-            variantClasses = !inverted ? 'bg-purple text-white' : 'bg-white text-purple border border-purple'
+      case 'tertiary':
+        variantButtonClasses =
+          'bg-white border border-fuchsia-blue-700 text-fuchsia-blue-700';
+        break;
+      case 'secondary':
+        variantButtonClasses = 'bg-riptide-300 text-fuchsia-blue-900';
+        break;
+      case 'primary':
+      default:
+        variantButtonClasses = 'bg-fuchsia-blue-700 text-white';
     }
 
-    let sizeClasses
-
-    switch (size) {
-        case 'small':
-            sizeClasses = "w-[100px] h-[30px]"
-            break
-        case 'large':
-            sizeClasses = "w-[200px] h-[45px]"
-            break
-        case 'full':
-            sizeClasses = "w-full"
-            break
-        case 'base':
-        default:
-            sizeClasses = "w-auto"
-
-    }
+    let sizeButtonClasses = {
+      small: 'h-7',
+      base: 'h-8',
+      large: 'h-9',
+      full: 'h-9 w-full',
+    };
 
     return (
-        <button
-            className={`h-[30px] rounded-full font-medium px-4 ${variantClasses} ${sizeClasses} ${className}`}
-            disabled={disabled}
-            style={{
-                opacity: disabled ? 0.5 : 1
-            }} ref={ref} {...props}>
-            Label
-        </button>
-    )
-})
+      <button
+        className={`${baseButtonClasses} ${variantButtonClasses} ${sizeButtonClasses[size]} ${className}`}
+        disabled={disabled}
+        style={{
+          opacity: disabled || loading ? 0.5 : 1,
+          minWidth: sizes[size],
+        }}
+        ref={ref}
+        {...props}
+      >
+        {loading ? (
+          <div className="loading-icon">
+            <FaSpinner />
+          </div>
+        ) : (
+          children
+        )}
+      </button>
+    );
+  },
+);
 
-Button.displayName = 'Button'
+Button.displayName = 'Button';
 
 export default Button;

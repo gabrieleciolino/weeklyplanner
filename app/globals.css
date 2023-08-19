@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-openSans bg-white;
+  @apply bg-white font-openSans;
 }
 
 h1,
@@ -19,11 +19,11 @@ h1 {
 }
 
 .weekCell {
-  @apply flex items-center justify-center outline-teal;
+  @apply flex items-center justify-center;
 }
 
 .dayCell {
-  @apply text-center outline-teal border border-lightMint h-[50px];
+  @apply h-[50px] text-center;
 }
 
 .sticky-header {
@@ -36,22 +36,16 @@ h1 {
   @apply m-4 !important;
 }
 
-.scrolling-text {
-  animation: marquee 5s linear infinite;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-@keyframes marquee {
+@keyframes spin {
   0% {
-    transform: translateX(0%);
-  }
-
-  50% {
-    transform: translateX(-100%);
+    transform: rotate(0deg);
   }
 
   100% {
-    transform: translateX(0%);
+    transform: rotate(360deg);
   }
+}
+
+.loading-icon {
+  animation: spin 2s linear infinite;
 }

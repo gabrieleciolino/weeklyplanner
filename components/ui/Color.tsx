@@ -1,9 +1,13 @@
 interface ColorProps extends React.HTMLAttributes<HTMLDivElement> {
-    color: string;
+  color: string;
 }
 
 export default function Color({ color, ...props }: ColorProps) {
-    return (
-        <div className="rounded-full w-[20px] h-[20px]" {...props} style={{ backgroundColor: color }}></div>
-    )
+  return (
+    <div
+      className="h-[20px] w-[20px] rounded-full"
+      {...props}
+      style={{ backgroundColor: color }}
+    ></div>
+  );
 }
