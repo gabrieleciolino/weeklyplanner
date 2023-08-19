@@ -28,10 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${openSans.variable}`}>
       <body>
-        <Header />
-        <main>
-          <Providers>{children}</Providers>
-        </main>
+        <Providers>
+          <>
+            <Header />
+            <main>{children}</main>
+          </>
+        </Providers>
       </body>
     </html>
   );

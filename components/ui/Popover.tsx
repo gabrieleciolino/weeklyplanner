@@ -1,25 +1,28 @@
 import * as RadixPopover from '@radix-ui/react-popover';
-import { useRef } from 'react';
 
 interface PopoverProps {
   trigger: React.ReactNode;
   children: React.ReactNode;
-  open?: boolean;
+  noPortal?: boolean;
+  side?: 'right' | 'top' | 'bottom' | 'left';
 }
 
 export default function Popover({
   trigger,
   children,
-  open = false,
+  side = 'bottom',
+  noPortal = false,
 }: PopoverProps) {
   return (
-    <RadixPopover.Root open={open}>
-      <RadixPopover.Trigger asChild>
-        <div>{trigger}</div>
-      </RadixPopover.Trigger>
-      <RadixPopover.Portal>
-        <RadixPopover.Content>{children}</RadixPopover.Content>
-      </RadixPopover.Portal>
+    <RadixPopover.Root>
+      <RadixPopover.Trigger asChild>{trigger}</RadixPopover.Trigger>
+      {noPortal ? (
+        <RadixPopover.Content side={side}>{children}</RadixPopover.Content>
+      ) : (
+        <RadixPopover.Portal>
+          <RadixPopover.Content side={side}>{children}</RadixPopover.Content>
+        </RadixPopover.Portal>
+      )}
     </RadixPopover.Root>
   );
 }

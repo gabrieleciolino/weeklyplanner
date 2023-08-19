@@ -1,73 +1,51 @@
 'use client';
 
-import { ModeType } from '@/types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WeekTabs from './WeekTabs';
-import WeekToolbar from './WeekToolbar';
-import WeekGrid from './WeekGrid';
+import WeekGrid from '../grid/WeekGrid';
 import { RootState } from '@/app/store';
-import { useSelector } from 'react-redux';
-import WeekAddButton from './WeekAddButton';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateMode,
+  updateSelectedCells,
+  updateSelectedWeek,
+} from '@/app/store/appSlice';
 
 export default function WeekWrapper() {
-  const [selectedWeek, setSelectedWeek] = useState<string>('');
-  const [selectedCells, setSelectedCells] = useState<string[]>([]);
-  const [mode, setMode] = useState<ModeType>('edit');
-
   const weekState = useSelector((state: RootState) => state.week);
+  const selectedWeek = useSelector(
+    (state: RootState) => state.app.selectedWeek,
+  );
+
+  const dispatch = useDispatch();
+
   const defaultWeekId = Object.keys(weekState)[0] || '';
 
   useEffect(() => {
     if (!selectedWeek) {
-      setSelectedWeek(defaultWeekId);
+      dispatch(updateSelectedWeek(defaultWeekId));
     }
-  }, [defaultWeekId, selectedWeek, weekState]);
+  }, [defaultWeekId, dispatch, selectedWeek]);
 
   useEffect(() => {
     if (selectedWeek) {
-      setSelectedCells([]);
-      setMode('edit');
+      dispatch(updateSelectedCells([]));
+      dispatch(updateMode('edit'));
     }
-  }, [selectedWeek]);
-
-  useEffect(() => {
-    if (mode === 'edit') {
-      setSelectedCells([]);
-    }
-  }, [mode, selectedCells]);
+  }, [dispatch, selectedWeek]);
 
   return (
     <>
       {Object.keys(weekState).length > 0 ? (
         <>
-          <WeekToolbar
-            selectedCells={selectedCells}
-            selectedWeek={selectedWeek}
-            mode={mode}
-            setMode={setMode}
-          />
-          <WeekTabs
-            selectedWeek={selectedWeek}
-            setSelectedWeek={setSelectedWeek}
-          />
-          <WeekGrid
-            selectedCells={selectedCells}
-            setSelectedCells={setSelectedCells}
-            selectedWeek={selectedWeek}
-            mode={mode}
-            setMode={setMode}
-          />
+          <WeekTabs />
+          <WeekGrid />
         </>
       ) : (
-        <div className="mx-4 my-20 text-center">
-          <h2 className="text-2xl font-normal lg:text-5xl">
+        <div className="mx-4 my-32 text-center">
+          <h2 className="text-2xl font-normal lg:text-4xl">
             No week added yet.
           </h2>
-          <div className="mt-8 flex items-center">
-            <div className="mx-auto">
-              <WeekAddButton />
-            </div>
-          </div>
         </div>
       )}
     </>

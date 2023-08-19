@@ -1,6 +1,5 @@
 import * as RadixSelect from '@radix-ui/react-select';
 import Button from './Button';
-import { FiArrowDownCircle, FiArrowUpCircle } from 'react-icons/fi';
 import { useEffect, useRef, useState } from 'react';
 
 interface SelectProps {
@@ -35,17 +34,15 @@ export default function Select({
       onValueChange={(val) => onValueChange(val)}
     >
       <RadixSelect.Trigger ref={triggerRef} asChild>
-        <Button size="auto" variant="tertiary">
-          <div className="text-xs leading-3 lg:text-base">
-            <RadixSelect.Value className="" placeholder={placeholder}>
-              {!selectedOption?.label && <>{placeholder}</>}
-              {selectedOption?.label && (
-                <>
-                  {label}: {selectedOption?.label}
-                </>
-              )}
-            </RadixSelect.Value>
-          </div>
+        <Button variant="tertiary">
+          <RadixSelect.Value className="" placeholder={placeholder}>
+            {!selectedOption?.label && <>{placeholder}</>}
+            {selectedOption?.label && (
+              <>
+                {label}: {selectedOption?.label}
+              </>
+            )}
+          </RadixSelect.Value>
         </Button>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>

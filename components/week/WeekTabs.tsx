@@ -1,79 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { update } from '@/app/store/weekSlice';
+import { updateSelectedWeek } from '@/app/store/appSlice';
 
-interface WeekTabsProps {
-  selectedWeek: string;
-  setSelectedWeek: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export default function WeekHeader({
-  selectedWeek,
-  setSelectedWeek,
-}: WeekTabsProps) {
-  const [editingWeekId, setEditingWeekId] = useState<string | null>(null);
-
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (editingWeekId && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [editingWeekId]);
-
+export default function WeekHeader() {
   const weekState = useSelector((state: RootState) => state.week);
+  const selectedWeek = useSelector(
+    (state: RootState) => state.app.selectedWeek,
+  );
   const dispatch = useDispatch();
 
-  const handleDoubleClick = (weekId: string) => {
-    setEditingWeekId(weekId);
-  };
-
-  const handleWeekTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget) {
-      dispatch(
-        update({
-          id: selectedWeek,
-          title: e.currentTarget.value,
-        }),
-      );
-    }
-  };
-
   const handleClick = (id: string) => {
-    setSelectedWeek(id);
-  };
-
-  const handleBlur = () => {
-    setEditingWeekId(null);
+    dispatch(updateSelectedWeek(id));
   };
 
   const weeks = Object.keys(weekState);
 
   return (
-    <div className="my-4">
-      <ul className="flex h-full items-center gap-4">
+    <div className="mx-2 my-4 overflow-x-auto whitespace-nowrap rounded-full bg-riptide-100 py-2 lg:mx-4">
+      <ul className="flex gap-8 px-2">
         {weeks.map((weekId, idx) => (
           <li
             key={idx}
-            className={`inline-flex h-[40px] items-center rounded-full text-xl ${
-              selectedWeek === weekId ? ' text-purple' : 'text-mint'
+            className={`text-md min-w-[80px] cursor-pointer items-center overflow-hidden text-ellipsis rounded-full text-center font-roboto ${
+              selectedWeek === weekId
+                ? ' font-bold text-fuchsia-blue-700'
+                : 'text-riptide-800'
             } `}
             onClick={() => handleClick(weekId)}
-            onDoubleClick={() => handleDoubleClick(weekId)}
             style={{ zIndex: weeks.length - idx }}
           >
-            <input
-              ref={inputRef}
-              type="text"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleWeekTitle(e)
-              }
-              value={weekState[weekId].title}
-              className={`w-[80px] bg-transparent text-center outline-none`}
-              disabled={editingWeekId !== weekId}
-              onBlur={handleBlur}
-            />
+            {weekState[weekId].title}
           </li>
         ))}
       </ul>

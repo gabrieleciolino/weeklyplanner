@@ -23,9 +23,9 @@ const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const variantClasses =
       variant === 'primary'
-        ? 'bg-purple text-white'
+        ? 'bg-fuchsia-blue-400 text-white'
         : variant === 'secondary'
-        ? 'bg-mint text-purple'
+        ? 'bg-mint text-fuchsia-blue-400'
         : 'border border-mint text-mint';
     const sizeClasses =
       size === 'small'

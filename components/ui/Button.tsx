@@ -29,7 +29,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       full: '8rem',
     };
 
-    const baseButtonClasses = `font-medium rounded-full font-roboto  px-4 flex items-center justify-center hover:border hover:border-fuchsia-blue-400`;
+    const baseButtonClasses = `font-medium rounded-full font-roboto text-sm lg:text-base px-4 flex items-center justify-center hover:border hover:border-fuchsia-blue-400`;
 
     let variantButtonClasses;
 
@@ -46,8 +46,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         variantButtonClasses = 'bg-fuchsia-blue-700 text-white';
     }
 
-    let sizeButtonClasses = {
-      small: 'h-7',
+    const sizeButtonClasses = {
+      small: 'h-6',
       base: 'h-8',
       large: 'h-9',
       full: 'h-9 w-full',
