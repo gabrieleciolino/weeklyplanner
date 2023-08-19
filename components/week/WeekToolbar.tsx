@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Button from '../ui/Button';
 import Select from '../ui/Select';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,9 +10,6 @@ import { add as addTemplate } from '@/app/store/templateSlice';
 import { updateMode } from '@/app/store/appSlice';
 
 export default function WeekToolbar() {
-  const toolbarSentinelRef = useRef<HTMLDivElement>(null);
-  const toolbarRef = useRef<HTMLDivElement>(null);
-
   const weekState = useSelector((state: RootState) => state.week);
   const templateState = useSelector((state: RootState) => state.template);
   const selectedCells = useSelector(
@@ -82,7 +79,7 @@ export default function WeekToolbar() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4" ref={toolbarRef}>
+      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
         <Button variant="primary" onClick={handleNewWeek}>
           Add week
         </Button>
@@ -103,7 +100,6 @@ export default function WeekToolbar() {
           Save as template
         </Button>
       </div>
-      <div ref={toolbarSentinelRef} style={{ height: '1px' }}></div>
     </>
   );
 }
