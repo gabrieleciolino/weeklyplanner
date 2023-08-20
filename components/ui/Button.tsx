@@ -66,6 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         style={{
           opacity: disabled || loading ? 0.5 : 1,
           minWidth: sizes[size],
+          lineHeight: 1,
         }}
         ref={ref}
         {...props}

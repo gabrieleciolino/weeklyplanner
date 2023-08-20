@@ -34,6 +34,8 @@ export default function WeekWrapper() {
     }
   }, [dispatch, selectedWeek]);
 
+  console.log(JSON.stringify(weekState, null, 2));
+
   return (
     <>
       {Object.keys(weekState).length > 0 ? (

@@ -93,7 +93,7 @@ export default function WeekToolbar() {
           {mode === 'edit' ? (
             <Icons name="edit" variant="secondary" />
           ) : (
-            <Icons name="structure" variant="secondary" />
+            <Icons name="select" variant="secondary" />
           )}
         </Button>
         <div className="hidden lg:block">
