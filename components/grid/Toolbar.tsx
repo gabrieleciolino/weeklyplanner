@@ -6,6 +6,7 @@ import Button from '../ui/Button';
 import { updateSelectedCells } from '@/app/store/appSlice';
 import { update } from '@/app/store/weekSlice';
 import { WeekItem } from '@/types';
+import Icons from '../ui/Icons';
 
 export default function Toolbar() {
   const mode = useSelector((state: RootState) => state.app.mode);
@@ -19,7 +20,7 @@ export default function Toolbar() {
 
   const dispatch = useDispatch();
 
-  if (mode === 'edit' || selectedCells.length === 0) {
+  if (mode === 'edit') {
     return null;
   }
 
@@ -47,17 +48,26 @@ export default function Toolbar() {
   };
 
   return (
-    <div className="mx-auto w-auto rounded-full border border-riptide-200 bg-white px-4 py-2 shadow">
-      <div className="ml-auto p-2 text-sm">
-        <div className="col-span-2 flex items-center gap-4">
+    <div className="mx-auto w-auto">
+      <div className="mx-2  rounded-full bg-white px-8 py-6 text-sm shadow">
+        <div className="col-span-2 flex items-center gap-12">
           <ToolbarBgColorPopover />
           <ToolbarTextColorPopover />
-          <div>Selected: {selectedCells.length}</div>
-          <Button variant="secondary" size="small" onClick={clearStyle}>
-            <div className="text-sm">Clear style</div>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={clearStyle}
+            label="Clear style"
+          >
+            <Icons name="clear" variant="secondary" />
           </Button>
-          <Button variant="secondary" size="small" onClick={clearSelection}>
-            <div className="text-sm">Clear selection</div>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={clearSelection}
+            label="Clear selection"
+          >
+            <Icons name="clear" variant="secondary" />
           </Button>
         </div>
       </div>

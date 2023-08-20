@@ -1,12 +1,13 @@
 import React from 'react';
-import { FaSpinner } from 'react-icons/fa6';
+import Icons from './Icons';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'tertiary';
-  size?: 'small' | 'base' | 'large' | 'full';
+  size?: 'small' | 'base' | 'large' | 'full' | 'icon';
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
+  label?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -17,6 +18,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       loading = false,
       className = '',
+      label = '',
       children,
       ...props
     },
@@ -27,9 +29,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       base: '8rem',
       large: '9rem',
       full: '8rem',
+      icon: 'unset',
     };
 
-    const baseButtonClasses = `font-medium rounded-full font-roboto text-sm lg:text-base px-4 flex items-center justify-center hover:border hover:border-fuchsia-blue-400`;
+    const baseButtonClasses = `relative font-medium rounded-full font-roboto text-sm lg:text-base flex items-center justify-center hover:border hover:border-fuchsia-blue-400`;
 
     let variantButtonClasses;
 
@@ -39,18 +42,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'bg-white border border-fuchsia-blue-700 text-fuchsia-blue-700';
         break;
       case 'secondary':
-        variantButtonClasses = 'bg-riptide-300 text-fuchsia-blue-900';
+        variantButtonClasses =
+          'bg-riptide-200 text-riptide-800 border border-riptide-300';
         break;
       case 'primary':
       default:
-        variantButtonClasses = 'bg-fuchsia-blue-700 text-white';
+        variantButtonClasses =
+          'bg-fuchsia-blue-700 text-white border border-fuchsia-blue-700';
     }
 
     const sizeButtonClasses = {
-      small: 'h-6',
-      base: 'h-8',
-      large: 'h-9',
-      full: 'h-9 w-full',
+      small: 'h-6 px-4 ',
+      base: 'h-8 px-4 ',
+      large: 'h-9 px-4 ',
+      full: 'h-9 w-full px-4 ',
+      icon: 'w-7 h-7 lg:h-9 lg:w-9 -mt-2',
     };
 
     return (
@@ -66,7 +72,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? (
           <div className="loading-icon">
-            <FaSpinner />
+            <Icons name="loading" />
+          </div>
+        ) : size === 'icon' ? (
+          <div className="text-base lg:text-xl">
+            <span>{children}</span>
+            {label && (
+              <span className="absolute -bottom-4 left-[50%] -translate-x-[50%] whitespace-nowrap text-xs text-fuchsia-blue-700">
+                {label}
+              </span>
+            )}
           </div>
         ) : (
           children

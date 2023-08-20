@@ -8,6 +8,7 @@ interface SelectProps {
   options: { label: string; value: string }[];
   onValueChange: (val: string) => void;
   value?: string;
+  size?: 'small' | 'base' | 'large';
 }
 
 export default function Select({
@@ -15,6 +16,7 @@ export default function Select({
   label = 'Value',
   options,
   value,
+  size = 'base',
   onValueChange,
 }: SelectProps) {
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -34,7 +36,7 @@ export default function Select({
       onValueChange={(val) => onValueChange(val)}
     >
       <RadixSelect.Trigger ref={triggerRef} asChild>
-        <Button variant="tertiary">
+        <Button variant="tertiary" size={size}>
           <RadixSelect.Value className="" placeholder={placeholder}>
             {!selectedOption?.label && <>{placeholder}</>}
             {selectedOption?.label && (

@@ -2,6 +2,7 @@ import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
 import { Redis } from '@upstash/redis';
 import NextAuth from 'next-auth/next';
 import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
 const handler = NextAuth({
   adapter: UpstashRedisAdapter(
@@ -14,6 +15,10 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_OAUTH_CLIENT_ID || '',
       clientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET || '',
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || '',
     }),
   ],
 });

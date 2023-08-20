@@ -1,11 +1,11 @@
-import { PiSelectionBackground } from 'react-icons/pi';
 import Popover from '../ui/Popover';
 import Color from '../ui/Color';
-import IconButton from '../ui/IconButton';
 import { update as updateWeek } from '@/app/store/weekSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { WeekItem } from '@/types';
+import Button from '../ui/Button';
+import Icons from '../ui/Icons';
 
 export default function ToolbarBgColorPopover() {
   const weekState = useSelector((state: RootState) => state.week);
@@ -39,7 +39,9 @@ export default function ToolbarBgColorPopover() {
   return (
     <Popover
       trigger={
-        <IconButton icon={<PiSelectionBackground />} label="Background" />
+        <Button size="icon" label="Background" variant="secondary">
+          <Icons name="palette" variant="secondary" />
+        </Button>
       }
     >
       <div className="my-4 rounded-md bg-fuchsia-blue-400 p-4 shadow">

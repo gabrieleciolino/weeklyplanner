@@ -45,3 +45,16 @@ h1 {
 .loading-icon {
   animation: spin 2s linear infinite;
 }
+
+.primary-icon path {
+  @apply fill-white;
+}
+
+/* .secondary-icon {
+  width: 16px;
+  height: 16px;
+} */
+
+.secondary-icon path {
+  @apply fill-fuchsia-blue-700;
+}

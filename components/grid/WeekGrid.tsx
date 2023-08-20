@@ -36,13 +36,13 @@ export default function WeekGrid() {
   };
 
   return (
-    <div className="overflow-hidden p-2 md:p-4">
+    <div className="overflow-hidden p-2 md:p-4 ">
       {showPageButton && (
         <Button size="small" onClick={handleClickOnNavigation}>
           {gridPage === 0 ? 'Next' : 'Prev'}
         </Button>
       )}
-      <div className="grid-rows-12 grid bg-white" ref={gridRef}>
+      <div className="grid-rows-12 grid " ref={gridRef}>
         <div className="border-purple mb-2 grid grid-cols-8 gap-4 border-b-2 lg:mb-4">
           <div className=""></div>
           <div className="weekCell">Mon</div>

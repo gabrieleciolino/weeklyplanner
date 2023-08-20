@@ -8,13 +8,11 @@ import { RootState } from '@/app/store';
 import { update as updateWeek, add as addWeek } from '@/app/store/weekSlice';
 import { add as addTemplate } from '@/app/store/templateSlice';
 import { updateMode } from '@/app/store/appSlice';
+import Icons from '@/components/ui/Icons';
 
 export default function WeekToolbar() {
   const weekState = useSelector((state: RootState) => state.week);
   const templateState = useSelector((state: RootState) => state.template);
-  const selectedCells = useSelector(
-    (state: RootState) => state.app.selectedCells,
-  );
   const selectedWeek = useSelector(
     (state: RootState) => state.app.selectedWeek,
   );
@@ -75,30 +73,61 @@ export default function WeekToolbar() {
     dispatch(updateMode(mode === 'edit' ? 'select' : 'edit'));
   };
 
-  console.log('mode', mode, selectedCells);
-
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
-        <Button variant="primary" onClick={handleNewWeek}>
-          Add week
+      <div className="mx-auto flex max-w-[500px] justify-between gap-x-8 gap-y-8 lg:justify-center lg:gap-x-16">
+        <Button
+          variant="primary"
+          onClick={handleNewWeek}
+          size="icon"
+          label="New week"
+        >
+          <Icons name="newFile" />
         </Button>
-        <Button variant="tertiary" onClick={handleModeChange}>
-          Mode: {mode}
+        <Button
+          variant="tertiary"
+          onClick={handleModeChange}
+          size="icon"
+          label="Mode"
+        >
+          {mode === 'edit' ? (
+            <Icons name="edit" variant="secondary" />
+          ) : (
+            <Icons name="structure" variant="secondary" />
+          )}
         </Button>
-        <Select
-          placeholder="Choose a template"
-          label="Template"
-          options={templateKeys.map((templateKey) => ({
-            value: `${templateKey}_${selectedWeek}`,
-            label: templateState[templateKey].title,
-          }))}
-          onValueChange={(val) => handleChooseTemplate(val)}
-          value={weekState[selectedWeek]?.templateId}
-        />
-        <Button variant="tertiary" onClick={handleSaveTemplate}>
-          Save as template
-        </Button>
+        <div className="hidden lg:block">
+          <Button
+            variant="tertiary"
+            onClick={handleSaveTemplate}
+            size="icon"
+            label="Save as template"
+          >
+            <Icons name="save" variant="secondary" />
+          </Button>
+        </div>
+        <div className="block lg:hidden">
+          <Button
+            variant="tertiary"
+            onClick={handleSaveTemplate}
+            size="icon"
+            label="Save"
+          >
+            <Icons name="save" variant="secondary" />
+          </Button>
+        </div>
+        <div className="flex justify-center">
+          <Select
+            placeholder="Choose a template"
+            label="Template"
+            options={templateKeys.map((templateKey) => ({
+              value: `${templateKey}_${selectedWeek}`,
+              label: templateState[templateKey].title,
+            }))}
+            onValueChange={(val) => handleChooseTemplate(val)}
+            value={weekState[selectedWeek]?.templateId}
+          />
+        </div>
       </div>
     </>
   );
